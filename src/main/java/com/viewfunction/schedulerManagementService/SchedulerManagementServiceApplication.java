@@ -1,6 +1,6 @@
-package com.viewfunction.schedulerExchangeService;
+package com.viewfunction.schedulerManagementService;
 
-import com.viewfunction.schedulerExchangeService.util.ApplicationLauncherUtil;
+import com.viewfunction.schedulerManagementService.util.ApplicationLauncherUtil;
 import com.viewfunction.schedulerManagement.restful.CalendarOperationService;
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
@@ -22,7 +22,7 @@ import java.util.Arrays;
 @ServletComponentScan(basePackages = { "com.viewfunction.schedulerManagement"})
 @ComponentScan(basePackages = { "com.viewfunction.schedulerManagement"})
 @EnableDiscoveryClient
-public class SchedulerExchangeServiceApplication {
+public class SchedulerManagementServiceApplication {
 
     @Autowired
     private Bus cxfBus;
@@ -52,7 +52,7 @@ public class SchedulerExchangeServiceApplication {
     }
 
 	public static void main(String[] args) {
-		SpringApplication.run(SchedulerExchangeServiceApplication.class, args);
+		SpringApplication.run(SchedulerManagementServiceApplication.class, args);
         ApplicationLauncherUtil.printApplicationConsoleBanner();
 	}
 }

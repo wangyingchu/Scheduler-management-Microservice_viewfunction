@@ -9,7 +9,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.viewfunction.schedulerExchangeService.util.RuntimeEnvironmentHandler;
+import com.viewfunction.schedulerManagementService.util.RuntimeEnvironmentHandler;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;

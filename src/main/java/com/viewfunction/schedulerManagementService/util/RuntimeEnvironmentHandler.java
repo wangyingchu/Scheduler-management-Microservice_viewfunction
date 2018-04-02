@@ -1,4 +1,4 @@
-package com.viewfunction.schedulerExchangeService.util;
+package com.viewfunction.schedulerManagementService.util;
 
 public class RuntimeEnvironmentHandler {
 
