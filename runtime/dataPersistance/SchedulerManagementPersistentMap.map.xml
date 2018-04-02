@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+  project-version="3.0.0.1">
+	<property name="defaultPackage" value="com.viewfunction.schedulerManagement.persistent"/>
+	<db-entity name="CalendarAction">
+		<db-attribute name="calendarActionId" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="100"/>
+		<db-attribute name="calendarActionName" type="VARCHAR" length="400"/>
+		<db-attribute name="calendarActionType" type="VARCHAR" length="50"/>
+		<db-attribute name="calendarEntityId" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="CalendarActionDataObject">
+		<db-attribute name="calendarActionId" type="VARCHAR" length="100"/>
+		<db-attribute name="calendarDataId" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="100"/>
+		<db-attribute name="dataKey" type="VARCHAR" length="300"/>
+		<db-attribute name="dataType" type="VARCHAR" length="20"/>
+		<db-attribute name="dataValue" type="LONGVARCHAR"/>
+	</db-entity>
+	<db-entity name="CalendarEntity">
+		<db-attribute name="calendarEntityId" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="100"/>
+		<db-attribute name="calendarEntityType" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="calendarEntityUserId" type="VARCHAR" length="100"/>
+		<db-attribute name="calendarScope" type="VARCHAR" length="100"/>
+		<db-attribute name="entityOccurCronExpression" type="VARCHAR" length="400"/>
+		<db-attribute name="entityOccurEndTime" type="BIGINT"/>
+		<db-attribute name="entityOccurStartTime" type="BIGINT"/>
+		<db-attribute name="entityOccurTime" type="BIGINT"/>
+		<db-attribute name="entityRepeatCount" type="INTEGER"/>
+		<db-attribute name="entityRepeatInterval" type="BIGINT"/>
+	</db-entity>
+	<db-entity name="CalendarEntityDataObject">
+		<db-attribute name="calendarDataId" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="100"/>
+		<db-attribute name="calendarEntityId" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="dataKey" type="VARCHAR" length="300"/>
+		<db-attribute name="dataType" type="VARCHAR" length="20"/>
+		<db-attribute name="dataValue" type="LONGVARCHAR"/>
+	</db-entity>
+	<obj-entity name="CalendarAction" className="com.viewfunction.schedulerManagement.persistent.CalendarAction" dbEntityName="CalendarAction">
+		<obj-attribute name="calendarActionName" type="java.lang.String" db-attribute-path="calendarActionName"/>
+		<obj-attribute name="calendarActionType" type="java.lang.String" db-attribute-path="calendarActionType"/>
+	</obj-entity>
+	<obj-entity name="CalendarActionDataObject" className="com.viewfunction.schedulerManagement.persistent.CalendarActionDataObject" dbEntityName="CalendarActionDataObject">
+		<obj-attribute name="dataKey" type="java.lang.String" db-attribute-path="dataKey"/>
+		<obj-attribute name="dataType" type="java.lang.String" db-attribute-path="dataType"/>
+		<obj-attribute name="dataValue" type="java.lang.String" db-attribute-path="dataValue"/>
+	</obj-entity>
+	<obj-entity name="CalendarDataObject" className="com.viewfunction.schedulerManagement.persistent.CalendarDataObject" dbEntityName="CalendarEntityDataObject">
+		<obj-attribute name="dataKey" type="java.lang.String" db-attribute-path="dataKey"/>
+		<obj-attribute name="dataType" type="java.lang.String" db-attribute-path="dataType"/>
+		<obj-attribute name="dataValue" type="java.lang.String" db-attribute-path="dataValue"/>
+	</obj-entity>
+	<obj-entity name="CalendarEntity" className="com.viewfunction.schedulerManagement.persistent.CalendarEntity" dbEntityName="CalendarEntity">
+		<obj-attribute name="calendarEntityId" type="java.lang.String" db-attribute-path="calendarEntityId"/>
+		<obj-attribute name="calendarEntityType" type="java.lang.String" db-attribute-path="calendarEntityType"/>
+		<obj-attribute name="calendarEntityUserId" type="java.lang.String" db-attribute-path="calendarEntityUserId"/>
+		<obj-attribute name="calendarScope" type="java.lang.String" db-attribute-path="calendarScope"/>
+		<obj-attribute name="entityOccurCronExpression" type="java.lang.String" db-attribute-path="entityOccurCronExpression"/>
+		<obj-attribute name="entityOccurEndTime" type="java.lang.Long" db-attribute-path="entityOccurEndTime"/>
+		<obj-attribute name="entityOccurStartTime" type="java.lang.Long" db-attribute-path="entityOccurStartTime"/>
+		<obj-attribute name="entityOccurTime" type="java.lang.Long" db-attribute-path="entityOccurTime"/>
+		<obj-attribute name="entityRepeatCount" type="java.lang.Integer" db-attribute-path="entityRepeatCount"/>
+		<obj-attribute name="entityRepeatInterval" type="java.lang.Long" db-attribute-path="entityRepeatInterval"/>
+	</obj-entity>
+	<db-relationship name="calendarActionDataList" source="CalendarAction" target="CalendarActionDataObject" toMany="true">
+		<db-attribute-pair source="calendarActionId" target="calendarActionId"/>
+	</db-relationship>
+	<db-relationship name="calendarEntity" source="CalendarAction" target="CalendarEntity" toMany="false">
+		<db-attribute-pair source="calendarEntityId" target="calendarEntityId"/>
+	</db-relationship>
+	<db-relationship name="calendarAction" source="CalendarActionDataObject" target="CalendarAction" toMany="false">
+		<db-attribute-pair source="calendarActionId" target="calendarActionId"/>
+	</db-relationship>
+	<db-relationship name="calendarActionList" source="CalendarEntity" target="CalendarAction" toMany="true">
+		<db-attribute-pair source="calendarEntityId" target="calendarEntityId"/>
+	</db-relationship>
+	<db-relationship name="calendarEntityDataList" source="CalendarEntity" target="CalendarEntityDataObject" toMany="true">
+		<db-attribute-pair source="calendarEntityId" target="calendarEntityId"/>
+	</db-relationship>
+	<db-relationship name="calendarEntity" source="CalendarEntityDataObject" target="CalendarEntity" toMany="false">
+		<db-attribute-pair source="calendarEntityId" target="calendarEntityId"/>
+	</db-relationship>
+	<obj-relationship name="calendarActionDataList" source="CalendarAction" target="CalendarActionDataObject" deleteRule="Cascade" db-relationship-path="calendarActionDataList"/>
+	<obj-relationship name="calendarEntity" source="CalendarAction" target="CalendarEntity" deleteRule="Nullify" db-relationship-path="calendarEntity"/>
+	<obj-relationship name="calendarAction" source="CalendarActionDataObject" target="CalendarAction" deleteRule="Nullify" db-relationship-path="calendarAction"/>
+	<obj-relationship name="calendarEntity" source="CalendarDataObject" target="CalendarEntity" deleteRule="Nullify" db-relationship-path="calendarEntity"/>
+	<obj-relationship name="calendarActionList" source="CalendarEntity" target="CalendarAction" deleteRule="Cascade" db-relationship-path="calendarActionList"/>
+	<obj-relationship name="calendarEntityDataList" source="CalendarEntity" target="CalendarDataObject" deleteRule="Cascade" db-relationship-path="calendarEntityDataList"/>
+</data-map>
